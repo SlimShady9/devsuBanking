@@ -9,7 +9,7 @@ import java.util.UUID;;
 public class CustomerTest {
 
     @Test
-    void should_CreateCustomer_WhenAllDataIsCorrect() {
+    void should_createCustomer_whenAllDataIsCorrect() {
 
         Person person = new Person(
                 UUID.randomUUID(),
@@ -31,7 +31,7 @@ public class CustomerTest {
     }
 
     @Test
-    void should_FailToCreateCustomer_WhenAllDataIsCorrect() {
+    void should_failToCreateCustomer_whenAllDataIsCorrect() {
 
         Person person = new Person(
                 UUID.randomUUID(),
@@ -45,7 +45,7 @@ public class CustomerTest {
     }
 
     @Test
-    void should_FailToCreateCustomer_WhenPasswordIsEmpty() {
+    void should_failToCreateCustomer_whenPasswordIsEmpty() {
 
         Person person = new Person(
                 UUID.randomUUID(),
@@ -59,7 +59,7 @@ public class CustomerTest {
     }
 
     @Test
-    void should_FailToCreateCustomer_WhenStateIsIncorrect() {
+    void should_failToCreateCustomer_whenStateIsIncorrect() {
 
         Person person = new Person(
                 UUID.randomUUID(),
@@ -73,7 +73,7 @@ public class CustomerTest {
     }
 
     @Test
-    void should_FailToCreateCustomer_WhenPersonIsIncorrect() {
+    void should_failToCreateCustomer_whenPersonIsIncorrect() {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Customer(UUID.randomUUID(), "1234", true, null);
@@ -81,7 +81,7 @@ public class CustomerTest {
     }
 
     @Test
-    void should_Update_CustomerInformation_WhenDataIsCorrect() {
+    void should_update_customer_information_when_provided_with_valid_data() {
 
         Person person = new Person(
                 UUID.randomUUID(),

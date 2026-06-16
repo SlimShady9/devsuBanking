@@ -22,35 +22,35 @@ public class PasswordTest {
     }
 
     @Test
-    void should_FailToCreatePassword_WhenPasswordIsTooShort() {
+    void should_failToCreatePassword_whenPasswordIsTooShort() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Password("123", this.passwordHasher);
         });
     }
 
     @Test
-    void should_FailToCreatePassword_WhenPasswordIsTooLong() {
+    void should_failToCreatePassword_whenPasswordIsTooLong() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Password("12345678901231234321343214321", this.passwordHasher);
         });
     }
 
     @Test
-    void should_FailToCreatePassword_WhenPasswordDoesNotContainNumber() {
+    void should_failToCreatePassword_whenPasswordDoesNotContainNumber() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Password("password", this.passwordHasher);
         });
     }
 
     @Test
-    void should_FailToCreatePassword_WhenPasswordDoesNotContainSpecialCharacter() {
+    void should_failToCreatePassword_whenPasswordDoesNotContainSpecialCharacter() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Password("password123", this.passwordHasher);
         });
     }
 
     @Test
-    void should_CreatePassword_WhenPasswordIsCorrect() {
+    void should_createPassword_whenPasswordIsCorrect() {
         Password password = new Password("password123!", this.passwordHasher);
         assertNotNull(password.getHashedPassword());
     }
