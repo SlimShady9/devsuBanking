@@ -1,18 +1,22 @@
 package com.devsu.customer.usecase;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
+import com.devsu.customer.domain.model.Customer;
 import com.devsu.customer.domain.repository.CustomerRepository;
 import com.devsu.customer.domain.repository.PasswordHasher;
-import com.devsu.customer.dto.CreateClientRequest;
+import com.devsu.customer.dto.CustomerRequest;
 
-public class CreateClientTest {
+public class CreateCustomerTest {
 
     private CreateClient useCase;
     private CustomerRepository customerRepository;
@@ -29,7 +33,7 @@ public class CreateClientTest {
     @Test
     void should_save_a_new_customer_when_provided_with_valid_data() {
 
-        CreateClientRequest dto = new CreateClientRequest();
+        CustomerRequest dto = new CustomerRequest();
         dto.setName("Juan");
         dto.setGender("MALE");
         dto.setAge(30);
@@ -38,12 +42,17 @@ public class CreateClientTest {
 
         useCase.execute(dto);
 
+        ArgumentCaptor<Customer> captor = ArgumentCaptor.forClass(Customer.class);
+        verify(customerRepository).save(captor.capture());
+        assertEquals("Juan", captor.getValue().getPerson().getName());
+        assertEquals("hash_SecurePassword123.!", captor.getValue().getPassword());
+
     }
 
     @Test
     void should_fail_to_save_a_new_customer_when_provided_with_invalid_password() {
 
-        CreateClientRequest dto = new CreateClientRequest();
+        CustomerRequest dto = new CustomerRequest();
         dto.setName("Juan");
         dto.setGender("MALE");
         dto.setAge(30);

@@ -3,7 +3,7 @@ package com.devsu.customer.dto;
 import lombok.Data;
 
 @Data
-public class CreateClientRequest {
+public class CustomerRequest {
     private String name;
     private String gender;
     private Integer age;

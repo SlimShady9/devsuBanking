@@ -15,6 +15,25 @@ public class Person {
     private int age;
 
     public Person(UUID id, String name, Gender gender, int age) {
+        validateData(name, gender, age);
+        if (id == null) {
+            throw new IllegalArgumentException("Id cannot be null");
+        }
+        this.id = id;
+        this.name = name.trim();
+        this.gender = gender;
+        this.age = age;
+    }
+
+    public void updatePersonData(String name, Gender gender, int age) {
+        validateData(name, gender, age);
+
+        this.name = name.trim();
+        this.gender = gender;
+        this.age = age;
+    }
+
+    private void validateData(String name, Gender gender, int age) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
@@ -24,10 +43,6 @@ public class Person {
         if (age < 0) {
             throw new IllegalArgumentException("Age cannot be negative");
         }
-        this.id = id;
-        this.name = name.trim();
-        this.gender = gender;
-        this.age = age;
     }
 
 }

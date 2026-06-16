@@ -8,7 +8,7 @@ import com.devsu.customer.domain.model.Password;
 import com.devsu.customer.domain.model.Person;
 import com.devsu.customer.domain.repository.CustomerRepository;
 import com.devsu.customer.domain.repository.PasswordHasher;
-import com.devsu.customer.dto.CreateClientRequest;
+import com.devsu.customer.dto.CustomerRequest;
 
 public class CreateClient {
 
@@ -20,7 +20,7 @@ public class CreateClient {
         this.passwordHasher = passwordHasher;
     }
 
-    public void execute(CreateClientRequest request) {
+    public void execute(CustomerRequest request) {
 
         Password password = new Password(request.getPassword(), passwordHasher);
 

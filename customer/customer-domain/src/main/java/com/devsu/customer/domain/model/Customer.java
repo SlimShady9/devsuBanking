@@ -29,4 +29,12 @@ public class Customer {
         this.person = person;
     }
 
+    public void updateCustomerData(String name, Gender gender, Boolean state, int age) {
+        this.person.updatePersonData(name, gender, age);
+        if (state == null) {
+            throw new IllegalArgumentException("State cannot be null");
+        }
+        this.state = state;
+    }
+
 }
