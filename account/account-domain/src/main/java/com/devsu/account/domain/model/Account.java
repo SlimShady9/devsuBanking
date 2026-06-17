@@ -1,8 +1,6 @@
 package com.devsu.account.domain.model;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,11 +11,10 @@ public class Account {
 
     private final UUID id;
     private final String accountNumber;
-    private final AccountType accountType;
+    private AccountType accountType;
     private double balance;
-    private final Boolean state;
+    private Boolean state;
     private final UUID customerId;
-    private final List<Movement> movements;
     private final Instant creationDate;
 
     public Account(UUID id, String accountNumber, AccountType accountType, double balance, Boolean state,
@@ -47,21 +44,28 @@ public class Account {
         this.balance = balance;
         this.state = state;
         this.customerId = customerId;
-        this.movements = new ArrayList<>();
         this.creationDate = Instant.now();
     }
 
-    public void addMovement(Movement movement) {
-        if (movement == null) {
-            throw new IllegalArgumentException("Movement cannot be null");
-        }
+    public void makeTransaction(double amount) {
         if (!this.state) {
             throw new IllegalStateException("Cannot add movement to an inactive account");
         }
-        if (movement.getAmount() < 0 && (this.balance + movement.getAmount() < 0)) {
+        if (amount < 0 && (this.balance + amount < 0)) {
             throw new IllegalArgumentException("Insufficient balance for withdrawal");
         }
-        this.movements.add(movement);
-        this.balance += movement.getAmount();
+        this.balance += amount;
     }
+
+    public void updateAccountData(AccountType accountType, Boolean state) {
+        if (accountType == null) {
+            throw new IllegalArgumentException("Account type cannot be null");
+        }
+        if (state == null) {
+            throw new IllegalArgumentException("State cannot be null");
+        }
+        this.accountType = accountType;
+        this.state = state;
+    }
+
 }

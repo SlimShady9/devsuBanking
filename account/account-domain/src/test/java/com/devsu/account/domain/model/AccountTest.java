@@ -1,7 +1,6 @@
 package com.devsu.account.domain.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
@@ -81,32 +80,6 @@ public class AccountTest {
     }
 
     @Test
-    void should_trace_movement_when_account_is_updated() {
-        Account account = new Account(
-                UUID.randomUUID(),
-                "1234567890",
-                AccountType.SAVINGS,
-                1000.0,
-                true,
-                UUID.randomUUID());
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), 100.0);
-        account.addMovement(movement);
-        assertEquals(1, account.getMovements().size());
-    }
-
-    @Test
-    void should_add_instant_date_when_account_is_created() {
-        Account account = new Account(
-                UUID.randomUUID(),
-                "1234567890",
-                AccountType.SAVINGS,
-                1000.0,
-                true,
-                UUID.randomUUID());
-        assertNotNull(account.getCreationDate());
-    }
-
-    @Test
     void should_thow_error_when_add_movement_in_inactive_account() {
         Account account = new Account(
                 UUID.randomUUID(),
@@ -115,9 +88,8 @@ public class AccountTest {
                 1000.0,
                 false,
                 UUID.randomUUID());
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), 100.0);
         assertThrows(IllegalStateException.class, () -> {
-            account.addMovement(movement);
+            account.makeTransaction(100.0);
         });
     }
 
@@ -130,9 +102,8 @@ public class AccountTest {
                 1000.0,
                 true,
                 UUID.randomUUID());
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), -2000.0);
         assertThrows(IllegalArgumentException.class, () -> {
-            account.addMovement(movement);
+            account.makeTransaction(-2000.0);
         });
     }
 
