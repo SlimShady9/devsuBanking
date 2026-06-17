@@ -68,4 +68,8 @@ public class Account {
         this.state = state;
     }
 
+    public static Account createSavingsAccount(String accountNumber, double balance, UUID customerId) {
+        return new Account(UUID.randomUUID(), accountNumber, AccountType.SAVINGS, balance, true, customerId);
+    }
+
 }

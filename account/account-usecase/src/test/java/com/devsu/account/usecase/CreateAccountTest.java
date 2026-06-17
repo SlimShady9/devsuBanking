@@ -8,12 +8,13 @@ import org.mockito.ArgumentCaptor;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
+import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.model.AccountType;
+import com.devsu.account.domain.repository.AccountNumberCreator;
 import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.dto.AccountRequest;
 
@@ -21,18 +22,20 @@ public class CreateAccountTest {
 
     private CreateAccount useCase;
     private AccountRepository accountRepository;
+    private AccountNumberCreator accountNumberCreator;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
-        useCase = new CreateAccount(accountRepository);
+        accountNumberCreator = mock(AccountNumberCreator.class);
+        when(accountNumberCreator.generateAccountNumber()).thenReturn("1234567890");
+        useCase = new CreateAccount(accountRepository, accountNumberCreator);
     }
 
     @Test
     void should_create_a_new_account_when_provided_with_valid_data() {
 
         AccountRequest dto = new AccountRequest();
-        dto.setAccountNumber("1234567890");
         dto.setAccountType("SAVINGS");
         dto.setBalance(1000.0);
         dto.setState(Boolean.TRUE);
@@ -54,9 +57,8 @@ public class CreateAccountTest {
 
     @Test
     void should_throw_error_when_not_valid_account_number() {
-
+        when(accountNumberCreator.generateAccountNumber()).thenReturn("");
         AccountRequest dto = new AccountRequest();
-        dto.setAccountNumber("");
         dto.setAccountType("SAVINGS");
         dto.setBalance(1000.0);
         dto.setState(true);

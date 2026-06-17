@@ -28,6 +28,9 @@ public class CustomerTest {
                 () -> assertEquals("Juan", customer.getPerson().getName()),
                 () -> assertEquals(Gender.MALE, customer.getPerson().getGender()),
                 () -> assertEquals(21, customer.getPerson().getAge()));
+
+        // event creation
+        assertEquals(1, customer.getEvents().size());
     }
 
     @Test

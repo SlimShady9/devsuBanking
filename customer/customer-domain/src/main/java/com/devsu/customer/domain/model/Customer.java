@@ -1,6 +1,10 @@
 package com.devsu.customer.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import com.devsu.customer.domain.event.CustomerCreated;
 
 import lombok.Getter;
 import lombok.ToString;
@@ -12,6 +16,8 @@ public class Customer {
     private String password;
     private Boolean state;
     private Person person;
+
+    private final List<CustomerCreated> events = new ArrayList<>();
 
     public Customer(UUID id, String hashedPassword, Boolean state, Person person) {
         if (hashedPassword == null) {
@@ -27,6 +33,8 @@ public class Customer {
         this.password = hashedPassword;
         this.state = state;
         this.person = person;
+
+        this.events.add(new CustomerCreated(id));
     }
 
     public void updateCustomerData(String name, Gender gender, Boolean state, int age) {
