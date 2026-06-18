@@ -14,7 +14,7 @@ public class Account {
     private AccountType accountType;
     private double balance;
     private Boolean state;
-    private final UUID customerId;
+    private UUID customerId;
     private final Instant creationDate;
 
     public Account(UUID id, String accountNumber, AccountType accountType, double balance, Boolean state,
@@ -48,6 +48,9 @@ public class Account {
     }
 
     public void makeTransaction(double amount) {
+        if (this.customerId == null) {
+            throw new IllegalStateException("Cannot add movement to an account without a customer");
+        }
         if (!this.state) {
             throw new IllegalStateException("Cannot add movement to an inactive account");
         }
@@ -70,6 +73,14 @@ public class Account {
 
     public static Account createSavingsAccount(String accountNumber, double balance, UUID customerId) {
         return new Account(UUID.randomUUID(), accountNumber, AccountType.SAVINGS, balance, true, customerId);
+    }
+
+    public void removeCustomer() {
+        this.customerId = null;
+    }
+
+    public void deactiveAccount() {
+        this.state = false;
     }
 
 }

@@ -13,6 +13,8 @@ public interface AccountRepository {
 
     Optional<Account> findByAccountNumber(String accountNumber);
 
+    List<Account> findByClientId(UUID clientId);
+
     List<Account> findAll();
 
     void delete(UUID id);
