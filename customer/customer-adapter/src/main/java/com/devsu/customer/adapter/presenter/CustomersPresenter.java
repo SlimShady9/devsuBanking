@@ -16,7 +16,8 @@ public class CustomersPresenter {
                         res.getName(),
                         res.getGender(),
                         res.getAge(),
-                        res.getState()))
+                        res.getState(),
+                        res.getPassword()))
                 .collect(Collectors.toList());
     }
 

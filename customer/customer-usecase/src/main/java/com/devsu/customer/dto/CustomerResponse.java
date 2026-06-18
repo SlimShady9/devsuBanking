@@ -11,6 +11,7 @@ public class CustomerResponse {
     private String gender;
     private Integer age;
     private Boolean state;
+    private String password;
 
     public static CustomerResponse fromDomain(Customer customer) {
         CustomerResponse response = new CustomerResponse();
@@ -19,6 +20,7 @@ public class CustomerResponse {
         response.setGender(customer.getPerson().getGender().name());
         response.setAge(customer.getPerson().getAge());
         response.setState(customer.getState());
+        response.setPassword(customer.getPassword());
         return response;
     }
 }

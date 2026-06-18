@@ -13,7 +13,8 @@ public class CustomerPresenter {
                 response.getName(),
                 response.getGender(),
                 response.getAge(),
-                response.getState());
+                response.getState(),
+                response.getPassword());
     }
 
     public CustomerViewModel getViewModel() {

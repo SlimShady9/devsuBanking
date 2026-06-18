@@ -1,6 +1,7 @@
 package com.devsu.customer.infrastructure.config;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.devsu.customer.ports.EventPublisher;
@@ -9,8 +10,12 @@ import com.devsu.customer.ports.EventPublisher;
 public class RabbitMQPublisher implements EventPublisher {
 
     private final RabbitTemplate rabbitTemplate;
-    private final String EXCHANGE = "customer.event";
-    private final String ROUTING_KEY = "customer.created";
+
+    @Value("${spring.rabbitmq.exchange}")
+    private String EXCHANGE;
+
+    @Value("${spring.rabbitmq.routingCreatedCustomerKey}")
+    private String ROUTING_KEY;
 
     public RabbitMQPublisher(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;

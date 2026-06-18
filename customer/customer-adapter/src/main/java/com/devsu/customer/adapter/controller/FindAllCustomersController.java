@@ -21,7 +21,8 @@ public class FindAllCustomersController {
                         customerResponse.getName(),
                         customerResponse.getGender(),
                         customerResponse.getAge(),
-                        customerResponse.getState()))
+                        customerResponse.getState(),
+                        customerResponse.getPassword()))
                 .collect(Collectors.toList());
     }
 

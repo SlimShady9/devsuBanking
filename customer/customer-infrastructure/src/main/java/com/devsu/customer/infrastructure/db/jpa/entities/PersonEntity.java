@@ -29,4 +29,5 @@ public abstract class PersonEntity {
     private String gender;
     @Column(name = "age")
     private Integer age;
+
 }

@@ -16,7 +16,8 @@ public class FindCustomerContoller {
         try {
             CustomerResponse customerResponse = useCase.execute(id);
             return new CustomerViewModel(customerResponse.getCustomerId().toString(), customerResponse.getName(),
-                    customerResponse.getGender(), customerResponse.getAge(), customerResponse.getState());
+                    customerResponse.getGender(), customerResponse.getAge(), customerResponse.getState(),
+                    customerResponse.getPassword());
         } catch (RuntimeException e) {
             return null;
         }

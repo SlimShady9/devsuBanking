@@ -12,5 +12,6 @@ public class CustomerViewModel {
     private String gender;
     private Integer age;
     private Boolean state;
+    private String password;
 
 }

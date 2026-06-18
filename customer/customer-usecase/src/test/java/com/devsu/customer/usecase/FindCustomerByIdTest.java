@@ -35,9 +35,9 @@ public class FindCustomerByIdTest {
         Person person = new Person(id, "Juan Test", Gender.MALE, 30);
         Customer customer = new Customer(id, "securePass123!", true, person);
 
-        when(customerRepository.findByName("Juan Test")).thenReturn(Optional.of(customer));
+        when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
 
-        CustomerResponse result = useCase.execute("Juan Test");
+        CustomerResponse result = useCase.execute(id.toString());
 
         assertEquals(id, result.getCustomerId());
         assertEquals("Juan Test", result.getName());
@@ -48,8 +48,8 @@ public class FindCustomerByIdTest {
 
     @Test
     void should_throw_exception_when_customer_not_found() {
-        when(customerRepository.findByName("Juan Test")).thenReturn(Optional.empty());
+        when(customerRepository.findById(UUID.randomUUID())).thenReturn(Optional.empty());
 
-        assertThrows(MissingResourceException.class, () -> useCase.execute("Juan Test"));
+        assertThrows(MissingResourceException.class, () -> useCase.execute(UUID.randomUUID().toString()));
     }
 }

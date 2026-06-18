@@ -20,7 +20,7 @@ public class HTTPExceptionHandler {
     // Business Logic Exceptions
     @ExceptionHandler({ IllegalArgumentException.class })
     public ResponseEntity<Map<String, String>> handleIllegalArgumentExceptions(IllegalArgumentException ex) {
-        log.error("Error: {}", ex.getMessage(), ex);
+        log.error("Error: {}", ex.getMessage());
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
@@ -29,6 +29,7 @@ public class HTTPExceptionHandler {
     // Business Logic Exceptions
     @ExceptionHandler({ MissingResourceException.class })
     public ResponseEntity<Map<String, String>> handleMissingResourceExceptions(MissingResourceException ex) {
+        log.error("Error: {}", ex.getMessage());
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
@@ -56,9 +57,9 @@ public class HTTPExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleAllOtherExceptions(Exception ex) {
         Map<String, String> error = new HashMap<>();
-        log.error("Error: {} - {}", ex.getClass().getName(), ex.getMessage());
+        log.error("Error: {} - {}", ex.getClass().getName(), ex.getMessage(), ex);
         error.put("message", "Ocurrió un error interno en el servidor: " + ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
