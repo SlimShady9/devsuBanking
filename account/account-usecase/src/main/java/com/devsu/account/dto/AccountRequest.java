@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class AccountRequest {
 
-    private String accountNumber;
     private String accountType;
     private double balance;
     private Boolean state;

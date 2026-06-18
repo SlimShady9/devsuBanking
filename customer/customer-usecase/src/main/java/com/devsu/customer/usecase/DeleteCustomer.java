@@ -1,5 +1,6 @@
 package com.devsu.customer.usecase;
 
+import java.util.MissingResourceException;
 import java.util.UUID;
 
 import com.devsu.customer.domain.repository.CustomerRepository;
@@ -14,7 +15,7 @@ public class DeleteCustomer {
 
     public void execute(UUID id) {
         customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new MissingResourceException("Customer not found", "Customer", id.toString()));
 
         customerRepository.delete(id);
     }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class CustomerResponse {
-    private UUID id;
+    private UUID customerId;
     private String name;
     private String gender;
     private Integer age;
@@ -14,7 +14,7 @@ public class CustomerResponse {
 
     public static CustomerResponse fromDomain(Customer customer) {
         CustomerResponse response = new CustomerResponse();
-        response.setId(customer.getId());
+        response.setCustomerId(customer.getId());
         response.setName(customer.getPerson().getName());
         response.setGender(customer.getPerson().getGender().name());
         response.setAge(customer.getPerson().getAge());

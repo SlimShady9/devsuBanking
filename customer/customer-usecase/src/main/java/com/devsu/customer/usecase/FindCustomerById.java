@@ -1,5 +1,6 @@
 package com.devsu.customer.usecase;
 
+import java.util.MissingResourceException;
 import java.util.UUID;
 
 import com.devsu.customer.domain.model.Customer;
@@ -14,9 +15,9 @@ public class FindCustomerById {
         this.customerRepository = customerRepository;
     }
 
-    public CustomerResponse execute(UUID id) {
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+    public CustomerResponse execute(String id) {
+        Customer customer = customerRepository.findById(UUID.fromString(id))
+                .orElseThrow(() -> new MissingResourceException("Customer not found", "Customer", id));
         return CustomerResponse.fromDomain(customer);
     }
 }

@@ -11,11 +11,16 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>customer-usecase</artifactId>
+    <artifactId>customer-adapter</artifactId>
 
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.devsu</groupId>
+            <artifactId>customer-usecase</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.devsu</groupId>
             <artifactId>customer-domain</artifactId>
@@ -34,10 +39,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,11 +35,11 @@ public class FindCustomerByIdTest {
         Person person = new Person(id, "Juan Test", Gender.MALE, 30);
         Customer customer = new Customer(id, "securePass123!", true, person);
 
-        when(customerRepository.findById(id)).thenReturn(Optional.of(customer));
+        when(customerRepository.findByName("Juan Test")).thenReturn(Optional.of(customer));
 
-        CustomerResponse result = useCase.execute(id);
+        CustomerResponse result = useCase.execute("Juan Test");
 
-        assertEquals(id, result.getId());
+        assertEquals(id, result.getCustomerId());
         assertEquals("Juan Test", result.getName());
         assertEquals("MALE", result.getGender());
         assertEquals(30, result.getAge());
@@ -47,9 +48,8 @@ public class FindCustomerByIdTest {
 
     @Test
     void should_throw_exception_when_customer_not_found() {
-        UUID id = UUID.randomUUID();
-        when(customerRepository.findById(id)).thenReturn(Optional.empty());
+        when(customerRepository.findByName("Juan Test")).thenReturn(Optional.empty());
 
-        assertThrows(RuntimeException.class, () -> useCase.execute(id));
+        assertThrows(MissingResourceException.class, () -> useCase.execute("Juan Test"));
     }
 }

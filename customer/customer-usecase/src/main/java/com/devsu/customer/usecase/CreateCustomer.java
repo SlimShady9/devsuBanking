@@ -11,13 +11,13 @@ import com.devsu.customer.domain.repository.PasswordHasher;
 import com.devsu.customer.dto.CustomerRequest;
 import com.devsu.customer.ports.EventPublisher;
 
-public class CreateClient {
+public class CreateCustomer {
 
     private final CustomerRepository customerRepository;
     private final PasswordHasher passwordHasher;
     private final EventPublisher eventPublisher;
 
-    public CreateClient(CustomerRepository customerRepository, PasswordHasher passwordHasher,
+    public CreateCustomer(CustomerRepository customerRepository, PasswordHasher passwordHasher,
             EventPublisher eventPublisher) {
         this.customerRepository = customerRepository;
         this.passwordHasher = passwordHasher;

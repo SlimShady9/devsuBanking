@@ -2,7 +2,6 @@ package com.devsu.customer.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -20,7 +19,7 @@ import com.devsu.customer.ports.EventPublisher;
 
 public class CreateCustomerTest {
 
-    private CreateClient useCase;
+    private CreateCustomer useCase;
     private CustomerRepository customerRepository;
     private PasswordHasher passwordHasher;
     private EventPublisher eventPublisher;
@@ -31,7 +30,7 @@ public class CreateCustomerTest {
         passwordHasher = mock(PasswordHasher.class);
         eventPublisher = mock(EventPublisher.class);
         when(passwordHasher.hashPassword(anyString())).thenReturn("hash_SecurePassword123.!");
-        useCase = new CreateClient(customerRepository, passwordHasher, eventPublisher);
+        useCase = new CreateCustomer(customerRepository, passwordHasher, eventPublisher);
     }
 
     @Test

@@ -18,6 +18,8 @@
     <modules>
         <module>customer-domain</module>
         <module>customer-usecase</module>
+        <module>customer-adapter</module>
+        <module>customer-infrastructure</module>
     </modules>
 
 </project>

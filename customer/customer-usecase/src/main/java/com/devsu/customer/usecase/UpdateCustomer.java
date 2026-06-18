@@ -1,5 +1,6 @@
 package com.devsu.customer.usecase;
 
+import java.util.MissingResourceException;
 import java.util.UUID;
 
 import com.devsu.customer.domain.model.Customer;
@@ -18,7 +19,7 @@ public class UpdateCustomer {
     public void execute(UUID id, CustomerRequest request) {
 
         Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Customer not found"));
+                .orElseThrow(() -> new MissingResourceException("Customer not found", "Customer", id.toString()));
 
         customer.updateCustomerData(
                 request.getName(),

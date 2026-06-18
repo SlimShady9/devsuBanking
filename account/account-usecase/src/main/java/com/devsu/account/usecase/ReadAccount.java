@@ -1,7 +1,5 @@
 package com.devsu.account.usecase;
 
-import java.util.UUID;
-
 import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.dto.AccountResponse;
