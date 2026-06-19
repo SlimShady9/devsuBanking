@@ -7,9 +7,13 @@ import java.util.UUID;
 import com.devsu.customer.domain.event.CustomerCreated;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @ToString
 public class Customer {
     private UUID id;
@@ -35,6 +39,25 @@ public class Customer {
         this.person = person;
 
         this.events.add(new CustomerCreated(id));
+    }
+
+    public static Customer createCustomer(String hashedPassword, Boolean state, Person person) {
+        if (hashedPassword == null) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
+        if (state == null) {
+            throw new IllegalArgumentException("State cannot be null");
+        }
+        if (person == null) {
+            throw new IllegalArgumentException("Person cannot be null");
+        }
+
+        Customer customer = new Customer();
+        customer.setPassword(hashedPassword);
+        customer.setState(state);
+        customer.setPerson(person);
+        return customer;
+
     }
 
     public void updateCustomerData(String name, Gender gender, Boolean state, int age) {

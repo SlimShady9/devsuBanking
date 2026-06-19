@@ -1,5 +1,6 @@
 package com.devsu.account.infrastructure.db.jpa.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,6 +16,6 @@ public interface JpaMovementRepository extends JpaRepository<MovementEntity, UUI
     @NonNull
     Optional<MovementEntity> findById(@NonNull UUID id);
 
-    Optional<MovementEntity> findByAccountId(@NonNull UUID accountId);
+    List<MovementEntity> findByAccountId(@NonNull UUID accountId);
 
 }

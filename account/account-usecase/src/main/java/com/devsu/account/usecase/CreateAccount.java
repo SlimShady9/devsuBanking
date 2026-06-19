@@ -21,7 +21,6 @@ public class CreateAccount {
     public void execute(AccountRequest accountRequest) {
 
         Account account = new Account(
-                UUID.randomUUID(),
                 accountNumberCreator.generateAccountNumber(),
                 AccountType.valueOf(accountRequest.getAccountType()),
                 0.0,

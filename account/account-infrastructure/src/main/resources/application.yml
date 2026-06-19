@@ -20,6 +20,9 @@ spring:
     defer-datasource-initialization: true  
     
   rabbitmq:
+    listener:
+      simple:
+        default-requeue-rejected: false
     exchange: customer.event
     queue:
       routingCustomerCreatedKey: customer.created

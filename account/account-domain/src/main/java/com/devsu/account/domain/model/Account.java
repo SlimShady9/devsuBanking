@@ -3,25 +3,26 @@ package com.devsu.account.domain.model;
 import java.time.Instant;
 import java.util.UUID;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
+@NoArgsConstructor
 public class Account {
 
-    private final UUID id;
-    private final String accountNumber;
+    private UUID id;
+    private String accountNumber;
     private AccountType accountType;
     private double balance;
     private Boolean state;
     private UUID customerId;
-    private final Instant creationDate;
+    private Instant creationDate;
 
-    public Account(UUID id, String accountNumber, AccountType accountType, double balance, Boolean state,
+    public Account(String accountNumber, AccountType accountType, double balance, Boolean state,
             UUID customerId) {
-        if (id == null) {
-            throw new IllegalArgumentException("Id cannot be null");
-        }
         if (accountNumber == null || accountNumber.trim().isEmpty()) {
             throw new IllegalArgumentException("Account number cannot be null or empty");
         }
@@ -38,13 +39,30 @@ public class Account {
             throw new IllegalArgumentException("Customer id cannot be null");
         }
 
-        this.id = id;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;
         this.state = state;
         this.customerId = customerId;
         this.creationDate = Instant.now();
+    }
+
+    public static Account createAccount(String accountNumber, UUID customerId, double balance) {
+
+        if (customerId == null) {
+            throw new IllegalArgumentException("Customer id cannot be null");
+        }
+
+        Account account = new Account();
+
+        account.accountNumber = accountNumber;
+        account.accountType = AccountType.SAVINGS;
+        account.balance = balance;
+        account.state = true;
+        account.customerId = customerId;
+        account.creationDate = Instant.now();
+
+        return account;
     }
 
     public void makeTransaction(double amount) {
@@ -72,7 +90,7 @@ public class Account {
     }
 
     public static Account createSavingsAccount(String accountNumber, double balance, UUID customerId) {
-        return new Account(UUID.randomUUID(), accountNumber, AccountType.SAVINGS, balance, true, customerId);
+        return new Account(accountNumber, AccountType.SAVINGS, balance, true, customerId);
     }
 
     public void removeCustomer() {

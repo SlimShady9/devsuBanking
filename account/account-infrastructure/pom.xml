@@ -25,6 +25,11 @@
             <artifactId>account-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.devsu</groupId>
+            <artifactId>account-usecase</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

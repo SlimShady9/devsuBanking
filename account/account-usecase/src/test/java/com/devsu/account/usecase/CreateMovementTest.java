@@ -37,8 +37,9 @@ public class CreateMovementTest {
 
     @Test
     void should_create_movement_and_return_response() {
-        Account account = new Account(UUID.randomUUID(), "1234567890", AccountType.SAVINGS, 1000.0, true,
-                UUID.randomUUID());
+        UUID accounUuid = UUID.randomUUID();
+        Account account = new Account("1234567890", AccountType.SAVINGS, 1000.0, true, accounUuid);
+        account.setId(UUID.randomUUID());
         when(accountRepository.findByAccountNumber("1234567890")).thenReturn(Optional.of(account));
         when(accountRepository.update(eq(account.getId()), any(Account.class))).thenReturn(account);
         when(movementRepository.save(any(Movement.class)))

@@ -26,7 +26,7 @@ public class CreateMovement {
         // Persist updated account (assuming repository.update is needed)
         accountRepository.update(account.getId(), account);
         // Create movement record
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), request.getAmount());
+        Movement movement = Movement.createMovement(account.getId(), request.getAmount());
         Movement savedMovement = movementRepository.save(movement);
         return MovementResponse.fromDomain(savedMovement);
     }

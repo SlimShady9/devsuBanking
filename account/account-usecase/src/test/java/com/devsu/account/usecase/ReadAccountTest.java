@@ -30,11 +30,10 @@ public class ReadAccountTest {
     @Test
     void should_return_account_when_found() {
         UUID id = UUID.randomUUID();
-        Account account = new Account(id, "1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
+        Account account = new Account("1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
         when(accountRepository.findByAccountNumber("1234567890")).thenReturn(Optional.of(account));
 
         AccountResponse result = useCase.execute("1234567890");
-        assertEquals(id, result.getId());
         assertEquals("1234567890", result.getAccountNumber());
         assertEquals(AccountType.SAVINGS, result.getAccountType());
         assertEquals(1000.0, result.getBalance());

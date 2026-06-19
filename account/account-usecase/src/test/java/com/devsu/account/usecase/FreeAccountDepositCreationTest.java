@@ -1,5 +1,6 @@
 package com.devsu.account.usecase;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,12 +33,21 @@ public class FreeAccountDepositCreationTest {
         accountNumberCreator = mock(AccountNumberCreator.class);
         movementRepository = mock(MovementRepository.class);
         when(accountNumberCreator.generateAccountNumber()).thenReturn("1234567890");
+
         useCase = new FreeAccountDepositUseCase(accountRepository, accountNumberCreator, movementRepository);
     }
 
     @Test
     void should_create_account_with_initial_balance_and_movement() {
+
         UUID clientId = UUID.randomUUID();
+        Account accountSaved = Account.createAccount(
+                "1234567890",
+                clientId,
+                100.0);
+        accountSaved.setId(UUID.randomUUID());
+
+        when(accountRepository.save(any(Account.class))).thenReturn(accountSaved);
 
         // Execute use case
         useCase.execute(clientId);
@@ -56,7 +66,7 @@ public class FreeAccountDepositCreationTest {
         ArgumentCaptor<Movement> movementCaptor = ArgumentCaptor.forClass(Movement.class);
         verify(movementRepository).save(movementCaptor.capture());
         Movement savedMovement = movementCaptor.getValue();
-        assertEquals(savedAccount.getId(), savedMovement.getAccountId());
+        assertEquals(accountSaved.getId(), savedMovement.getAccountId());
         assertEquals(100.0, savedMovement.getAmount());
     }
 }

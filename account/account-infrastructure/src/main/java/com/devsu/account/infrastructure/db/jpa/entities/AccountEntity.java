@@ -53,12 +53,16 @@ public class AccountEntity {
 
     public Account toDomain() {
 
-        Account account = new Account(this.id, this.getAccountNumber(), AccountType.fromString(this.accountType),
-                this.getBalance(),
-                this.getState(), this.getCustomerId());
+        Account newAccount = new Account();
+        newAccount.setId(this.id);
+        newAccount.setAccountNumber(this.getAccountNumber());
+        newAccount.setAccountType(AccountType.fromString(this.accountType));
+        newAccount.setBalance(this.getBalance());
+        newAccount.setState(this.getState());
+        newAccount.setCustomerId(this.getCustomerId());
+        newAccount.setCreationDate(this.getCreationDate());
 
-        return account;
-
+        return newAccount;
     }
 
 }

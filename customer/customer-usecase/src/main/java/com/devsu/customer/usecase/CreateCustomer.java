@@ -28,14 +28,13 @@ public class CreateCustomer {
 
         Password password = new Password(request.getPassword(), passwordHasher);
 
-        Person person = new Person(UUID.randomUUID(), request.getName(), Gender.fromString(request.getGender()),
+        Person person = Person.createPerson(request.getName(), Gender.fromString(request.getGender()),
                 request.getAge());
 
-        Customer customer = new Customer(UUID.randomUUID(), password.getHashedPassword(), request.getState(), person);
+        Customer customer = Customer.createCustomer(password.getHashedPassword(), request.getState(), person);
+        Customer savedCustomer = customerRepository.save(customer);
 
-        customerRepository.save(customer);
-
-        customer.getEvents().forEach(eventPublisher::publishCustomerCreated);
+        savedCustomer.getEvents().forEach(eventPublisher::publishCustomerCreated);
 
     }
 

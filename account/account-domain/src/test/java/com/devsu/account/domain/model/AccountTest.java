@@ -14,7 +14,6 @@ public class AccountTest {
 
         UUID customerId = UUID.randomUUID();
         Account account = new Account(
-                UUID.randomUUID(),
                 "1234567890",
                 AccountType.SAVINGS,
                 1000.0,
@@ -32,7 +31,6 @@ public class AccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Account(
-                    UUID.randomUUID(),
                     "",
                     AccountType.SAVINGS,
                     1000.0,
@@ -42,7 +40,6 @@ public class AccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Account(
-                    UUID.randomUUID(),
                     null,
                     AccountType.SAVINGS,
                     1000.0,
@@ -56,7 +53,6 @@ public class AccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Account(
-                    UUID.randomUUID(),
                     "1234567890",
                     AccountType.SAVINGS,
                     1000.0,
@@ -70,7 +66,6 @@ public class AccountTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Account(
-                    UUID.randomUUID(),
                     "1234567890",
                     AccountType.SAVINGS,
                     -1000.0,
@@ -82,7 +77,6 @@ public class AccountTest {
     @Test
     void should_thow_error_when_add_movement_in_inactive_account() {
         Account account = new Account(
-                UUID.randomUUID(),
                 "1234567890",
                 AccountType.SAVINGS,
                 1000.0,
@@ -96,7 +90,6 @@ public class AccountTest {
     @Test
     void should_throw_error_when_not_enough_money_in_withdrawal() {
         Account account = new Account(
-                UUID.randomUUID(),
                 "1234567890",
                 AccountType.SAVINGS,
                 1000.0,

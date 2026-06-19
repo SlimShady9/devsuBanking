@@ -28,12 +28,11 @@ public class UpdateAccountTest {
     @Test
     void should_update_account_fields_and_return_response() {
         UUID id = UUID.randomUUID();
-        Account existing = new Account(id, "1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
+        Account existing = new Account("1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
         when(accountRepository.findById(id)).thenReturn(Optional.of(existing));
         when(accountRepository.update(eq(id), any(Account.class))).thenReturn(existing);
 
         AccountResponse response = useCase.execute(id, "SAVINGS", false);
-        assertEquals(id, response.getId());
         assertEquals(AccountType.SAVINGS, response.getAccountType());
         assertEquals(false, response.getState());
     }

@@ -14,7 +14,7 @@ public class RabbitMQPublisher implements EventPublisher {
     @Value("${spring.rabbitmq.exchange}")
     private String EXCHANGE;
 
-    @Value("${spring.rabbitmq.queue.routingCreatedCustomerKey}")
+    @Value("${spring.rabbitmq.queue.routingCustomerCreatedKey}")
     private String ROUTING_KEY_CREATED;
 
     @Value("${spring.rabbitmq.queue.routingCustomerDeletedKey}")

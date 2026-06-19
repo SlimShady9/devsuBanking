@@ -23,17 +23,16 @@ public class FreeAccountDepositUseCase {
     }
 
     public void execute(UUID clientId) {
-        Account account = new Account(
-                UUID.randomUUID(),
+        double giftBalance = 100.0;
+
+        Account account = Account.createAccount(
                 accountNumberCreator.generateAccountNumber(),
-                AccountType.SAVINGS,
-                100.0,
-                true,
-                clientId);
+                clientId,
+                giftBalance);
 
-        accountRepository.save(account);
+        Account newAccount = accountRepository.save(account);
 
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), 100.0);
+        Movement movement = Movement.createMovement(newAccount.getId(), giftBalance);
         movementRepository.save(movement);
     }
 }

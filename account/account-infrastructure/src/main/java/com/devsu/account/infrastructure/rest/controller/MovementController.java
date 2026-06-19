@@ -44,8 +44,8 @@ public class MovementController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/{accountNumber}")
-    public ResponseEntity<List<MovementViewModel>> getAllMovements(@PathVariable String accountNumber) {
+    @GetMapping
+    public ResponseEntity<List<MovementViewModel>> getAllMovements(@RequestParam String accountNumber) {
         log.info("Getting all movements for account number: {}", accountNumber);
         return ResponseEntity.ok(findAllMovementsController.handle(accountNumber));
     }

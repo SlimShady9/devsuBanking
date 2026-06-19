@@ -2,6 +2,7 @@ package com.devsu.customer.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import com.devsu.customer.domain.model.Customer;
+import com.devsu.customer.domain.model.Gender;
+import com.devsu.customer.domain.model.Person;
 import com.devsu.customer.domain.repository.CustomerRepository;
 import com.devsu.customer.domain.repository.PasswordHasher;
 import com.devsu.customer.dto.CustomerRequest;
@@ -35,6 +38,14 @@ public class CreateCustomerTest {
 
     @Test
     void should_save_a_new_customer_when_provided_with_valid_data() {
+
+        Person person = Person.createPerson("Juan", Gender.MALE, 30);
+        Customer customer = new Customer();
+        customer.setPerson(person);
+        customer.setPassword("hash_SecurePassword123.!");
+        customer.setState(true);
+
+        when(customerRepository.save(any(Customer.class))).thenReturn(customer);
 
         CustomerRequest dto = new CustomerRequest();
         dto.setName("Juan");

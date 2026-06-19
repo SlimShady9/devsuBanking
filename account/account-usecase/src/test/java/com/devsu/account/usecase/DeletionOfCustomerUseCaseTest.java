@@ -35,8 +35,10 @@ public class DeletionOfCustomerUseCaseTest {
         // 1. Arrange data
         UUID customerId = UUID.randomUUID();
         List<Account> accounts = List.of(
-                new Account(UUID.randomUUID(), customerId.toString(), AccountType.SAVINGS, 1000.0, true, customerId),
-                new Account(UUID.randomUUID(), customerId.toString(), AccountType.CURRENT, 1000.0, true, customerId));
+                new Account("1234567890", AccountType.SAVINGS, 1000.0, true, customerId),
+                new Account("1234567891", AccountType.CURRENT, 1000.0, true, customerId));
+        accounts.get(0).setId(UUID.randomUUID());
+        accounts.get(1).setId(UUID.randomUUID());
 
         ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
         when(accountRepository.findByClientId(customerId)).thenReturn(accounts);

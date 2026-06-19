@@ -35,7 +35,8 @@ public class FindMovementsTest {
     void should_find_movements_by_account_number_return_list_of_movements() {
 
         UUID accountId = UUID.randomUUID();
-        Account account = new Account(accountId, "1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
+        Account account = new Account("1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
+        account.setId(accountId);
         List<Movement> movements = List.of(
                 new Movement(UUID.randomUUID(), accountId, 100.0),
                 new Movement(UUID.randomUUID(), accountId, 200.0));
