@@ -15,16 +15,19 @@ import com.devsu.customer.domain.model.Customer;
 import com.devsu.customer.domain.model.Gender;
 import com.devsu.customer.domain.model.Person;
 import com.devsu.customer.domain.repository.CustomerRepository;
+import com.devsu.customer.ports.EventPublisher;
 
 public class DeleteCustomerTest {
 
     private DeleteCustomer useCase;
     private CustomerRepository customerRepository;
+    private EventPublisher eventPublisher;
 
     @BeforeEach
     void setUp() {
         customerRepository = mock(CustomerRepository.class);
-        useCase = new DeleteCustomer(customerRepository);
+        eventPublisher = mock(EventPublisher.class);
+        useCase = new DeleteCustomer(customerRepository, eventPublisher);
     }
 
     @Test

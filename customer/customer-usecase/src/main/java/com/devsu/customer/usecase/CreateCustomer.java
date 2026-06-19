@@ -35,7 +35,7 @@ public class CreateCustomer {
 
         customerRepository.save(customer);
 
-        customer.getEvents().forEach(eventPublisher::publish);
+        customer.getEvents().forEach(eventPublisher::publishCustomerCreated);
 
     }
 

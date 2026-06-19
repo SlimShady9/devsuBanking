@@ -37,13 +37,10 @@ public class FreeAccountDepositCreationTest {
 
     @Test
     void should_create_account_with_initial_balance_and_movement() {
-        AccountRequest request = new AccountRequest();
-        request.setAccountType("SAVINGS");
-        request.setBalance(100.0);
-        request.setClientId(UUID.randomUUID());
+        UUID clientId = UUID.randomUUID();
 
         // Execute use case
-        useCase.execute(request);
+        useCase.execute(clientId);
 
         // Capture saved account
         ArgumentCaptor<Account> accountCaptor = ArgumentCaptor.forClass(Account.class);
@@ -53,7 +50,7 @@ public class FreeAccountDepositCreationTest {
         assertEquals(AccountType.SAVINGS, savedAccount.getAccountType());
         assertEquals(100.0, savedAccount.getBalance());
         assertEquals(true, savedAccount.getState());
-        assertEquals(request.getClientId(), savedAccount.getCustomerId());
+        assertEquals(clientId, savedAccount.getCustomerId());
 
         // Capture saved movement
         ArgumentCaptor<Movement> movementCaptor = ArgumentCaptor.forClass(Movement.class);

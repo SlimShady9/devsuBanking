@@ -48,7 +48,7 @@ public class CreateAccountTest {
 
         assertEquals("1234567890", captor.getValue().getAccountNumber());
         assertEquals(AccountType.SAVINGS, captor.getValue().getAccountType());
-        assertEquals(1000.0, captor.getValue().getBalance());
+        assertEquals(0.0, captor.getValue().getBalance()); // Inicial balance is 0 for created accounts
         assertEquals(true, captor.getValue().getState());
         assertEquals(dto.getClientId(), captor.getValue().getCustomerId());
 

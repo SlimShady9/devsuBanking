@@ -14,15 +14,23 @@ public class RabbitMQPublisher implements EventPublisher {
     @Value("${spring.rabbitmq.exchange}")
     private String EXCHANGE;
 
-    @Value("${spring.rabbitmq.routingCreatedCustomerKey}")
-    private String ROUTING_KEY;
+    @Value("${spring.rabbitmq.queue.routingCreatedCustomerKey}")
+    private String ROUTING_KEY_CREATED;
+
+    @Value("${spring.rabbitmq.queue.routingCustomerDeletedKey}")
+    private String ROUTING_KEY_DELETED;
 
     public RabbitMQPublisher(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
-    public void publish(Object event) {
-        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, event);
+    public void publishCustomerCreated(Object event) {
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY_CREATED, event);
+    }
+
+    @Override
+    public void notifyCustomerDeleted(Object event) {
+        rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY_DELETED, event);
     }
 }

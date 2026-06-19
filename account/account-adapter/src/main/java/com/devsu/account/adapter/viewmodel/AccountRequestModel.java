@@ -11,6 +11,6 @@ public class AccountRequestModel {
 
     private String customerId;
     private String accountType;
-    private Double balance;
+    private Boolean state;
 
 }

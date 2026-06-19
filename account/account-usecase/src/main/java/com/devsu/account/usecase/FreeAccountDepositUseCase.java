@@ -8,7 +8,6 @@ import com.devsu.account.domain.model.Movement;
 import com.devsu.account.domain.repository.AccountNumberCreator;
 import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.domain.repository.MovementRepository;
-import com.devsu.account.dto.AccountRequest;
 
 public class FreeAccountDepositUseCase {
 
@@ -23,18 +22,18 @@ public class FreeAccountDepositUseCase {
         this.movementRepository = movementRepository;
     }
 
-    public void execute(AccountRequest accountRequest) {
+    public void execute(UUID clientId) {
         Account account = new Account(
                 UUID.randomUUID(),
                 accountNumberCreator.generateAccountNumber(),
-                AccountType.valueOf(accountRequest.getAccountType()),
-                accountRequest.getBalance(),
+                AccountType.SAVINGS,
+                100.0,
                 true,
-                accountRequest.getClientId());
+                clientId);
 
         accountRepository.save(account);
 
-        Movement movement = new Movement(UUID.randomUUID(), account.getId(), accountRequest.getBalance());
+        Movement movement = new Movement(UUID.randomUUID(), account.getId(), 100.0);
         movementRepository.save(movement);
     }
 }

@@ -17,7 +17,5 @@ public interface AccountRepository {
 
     List<Account> findAll();
 
-    void delete(UUID id);
-
     Account update(UUID id, Account account);
 }

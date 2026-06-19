@@ -2,5 +2,7 @@ package com.devsu.customer.ports;
 
 public interface EventPublisher {
 
-    void publish(Object event);
+    void publishCustomerCreated(Object event);
+
+    void notifyCustomerDeleted(Object event);
 }

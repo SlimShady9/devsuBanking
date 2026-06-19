@@ -67,6 +67,36 @@ services:
       # Explicitly forces all sent messages to remain RAM-only (ephemeral)
       SPRING_RABBITMQ_TEMPLATE_DELIVERY_MODE: non_persistent
 
+  account-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: "account"
+    container_name: banking-account-service
+    ports:
+      - "8083:8080"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    environment:
+      # Database connection parameters pointed to PostgreSQL
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/banking_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: YourSecurePassword123!
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+
+      # RabbitMQ configuration
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: guest
+      SPRING_RABBITMQ_PASSWORD: guest
+      # Explicitly forces all sent messages to remain RAM-only (ephemeral)
+      SPRING_RABBITMQ_TEMPLATE_DELIVERY_MODE: non_persistent
+
 # Volume definitions to persist setup configurations and DB states
 volumes:
   rabbitmq_data:

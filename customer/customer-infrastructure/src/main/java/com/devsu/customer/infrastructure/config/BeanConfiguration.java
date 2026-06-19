@@ -34,8 +34,8 @@ public class BeanConfiguration {
     }
 
     @Bean
-    DeleteCustomer deleteCustomer(CustomerRepository customerRepository) {
-        return new DeleteCustomer(customerRepository);
+    DeleteCustomer deleteCustomer(CustomerRepository customerRepository, EventPublisher eventPublisher) {
+        return new DeleteCustomer(customerRepository, eventPublisher);
     }
 
     @Bean
