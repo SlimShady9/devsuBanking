@@ -18,6 +18,7 @@
     <modules>           
         <module>account-domain</module>
         <module>account-usecase</module>
+        <module>account-adapter</module>
     </modules>
 
 </project>

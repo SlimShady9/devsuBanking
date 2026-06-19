@@ -38,7 +38,6 @@ public class CreateAccountTest {
         AccountRequest dto = new AccountRequest();
         dto.setAccountType("SAVINGS");
         dto.setBalance(1000.0);
-        dto.setState(Boolean.TRUE);
         dto.setClientId(UUID.randomUUID());
 
         useCase.execute(dto);
@@ -61,7 +60,6 @@ public class CreateAccountTest {
         AccountRequest dto = new AccountRequest();
         dto.setAccountType("SAVINGS");
         dto.setBalance(1000.0);
-        dto.setState(true);
         dto.setClientId(UUID.randomUUID());
 
         assertThrows(IllegalArgumentException.class, () -> {

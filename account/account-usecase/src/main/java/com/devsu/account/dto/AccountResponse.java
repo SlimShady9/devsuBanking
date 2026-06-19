@@ -7,12 +7,13 @@ import lombok.Data;
 
 @Data
 public class AccountResponse {
+
     private UUID id;
     private String accountNumber;
     private AccountType accountType;
     private double balance;
     private Boolean state;
-    private UUID clientId;
+    private UUID customerId;
 
     public static AccountResponse fromDomain(Account account) {
         AccountResponse response = new AccountResponse();
@@ -21,7 +22,7 @@ public class AccountResponse {
         response.setAccountType(account.getAccountType());
         response.setBalance(account.getBalance());
         response.setState(account.getState());
-        response.setClientId(account.getCustomerId());
+        response.setCustomerId(account.getCustomerId());
         return response;
     }
 }

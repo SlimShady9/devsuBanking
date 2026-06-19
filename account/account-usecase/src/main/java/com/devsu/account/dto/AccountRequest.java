@@ -8,6 +8,5 @@ public class AccountRequest {
 
     private String accountType;
     private double balance;
-    private Boolean state;
     private UUID clientId;
 }

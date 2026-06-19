@@ -5,15 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.model.Movement;
-import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.domain.repository.MovementRepository;
 import com.devsu.account.dto.MovementResponse;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

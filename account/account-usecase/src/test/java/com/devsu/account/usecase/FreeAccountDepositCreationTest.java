@@ -40,7 +40,6 @@ public class FreeAccountDepositCreationTest {
         AccountRequest request = new AccountRequest();
         request.setAccountType("SAVINGS");
         request.setBalance(100.0);
-        request.setState(true);
         request.setClientId(UUID.randomUUID());
 
         // Execute use case

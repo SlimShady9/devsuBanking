@@ -29,7 +29,7 @@ public class FreeAccountDepositUseCase {
                 accountNumberCreator.generateAccountNumber(),
                 AccountType.valueOf(accountRequest.getAccountType()),
                 accountRequest.getBalance(),
-                accountRequest.getState(),
+                true,
                 accountRequest.getClientId());
 
         accountRepository.save(account);

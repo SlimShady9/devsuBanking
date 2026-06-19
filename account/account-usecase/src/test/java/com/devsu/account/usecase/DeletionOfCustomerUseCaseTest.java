@@ -1,7 +1,6 @@
 package com.devsu.account.usecase;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -10,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,11 +17,7 @@ import org.mockito.ArgumentCaptor;
 
 import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.model.AccountType;
-import com.devsu.account.domain.model.Movement;
-import com.devsu.account.domain.repository.AccountNumberCreator;
 import com.devsu.account.domain.repository.AccountRepository;
-import com.devsu.account.domain.repository.MovementRepository;
-import com.devsu.account.dto.AccountRequest;
 
 public class DeletionOfCustomerUseCaseTest {
 

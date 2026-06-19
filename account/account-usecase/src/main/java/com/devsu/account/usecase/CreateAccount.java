@@ -24,8 +24,8 @@ public class CreateAccount {
                 UUID.randomUUID(),
                 accountNumberCreator.generateAccountNumber(),
                 AccountType.valueOf(accountRequest.getAccountType()),
-                accountRequest.getBalance(),
-                accountRequest.getState(),
+                0.0,
+                true,
                 accountRequest.getClientId());
         accountRepository.save(account);
 
