@@ -6,5 +6,5 @@ import java.util.List;
 import com.devsu.reports.domain.model.ReportRow;
 
 public interface ReportDataPort {
-    List<ReportRow> getDatosReporte(LocalDate fechaInicio, LocalDate fechaFin, String cliente);
+    List<ReportRow> getReportData(LocalDate initDate, LocalDate endDate, String customer);
 }

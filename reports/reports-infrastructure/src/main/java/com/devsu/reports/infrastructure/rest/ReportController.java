@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reportes")
+@RequestMapping("/api/reports")
 public class ReportController {
 
     private final GenerateReportUseCase generateReportUseCase;
@@ -26,11 +26,11 @@ public class ReportController {
 
     @GetMapping
     public ResponseEntity<List<ReportResponseDto>> getReporte(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
-            @RequestParam(required = false) String cliente) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate initDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(required = false) String customer) {
 
-        List<ReportResponseDto> report = generateReportUseCase.execute(fechaInicio, fechaFin, cliente);
+        List<ReportResponseDto> report = generateReportUseCase.execute(initDate, endDate, customer);
         return ResponseEntity.ok(report);
     }
 }

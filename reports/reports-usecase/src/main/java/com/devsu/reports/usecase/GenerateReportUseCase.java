@@ -16,9 +16,9 @@ public class GenerateReportUseCase {
         this.reportDataPort = reportDataPort;
     }
 
-    public List<ReportResponseDto> execute(LocalDate fechaInicio, LocalDate fechaFin, String cliente) {
-        List<ReportRow> datosDominio = reportDataPort.getDatosReporte(fechaInicio, fechaFin, cliente);
+    public List<ReportResponseDto> execute(LocalDate initDate, LocalDate endDate, String customer) {
+        List<ReportRow> domainData = reportDataPort.getReportData(initDate, endDate, customer);
 
-        return ReportDtoMapper.toDtoList(datosDominio);
+        return ReportDtoMapper.toDtoList(domainData);
     }
 }

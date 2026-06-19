@@ -20,19 +20,19 @@ public class JdbcReportQueryRepository implements ReportPersistencePort {
         }
 
         @Override
-        public List<Object[]> buscarDatosEnBaseDatos(String query, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-                        String cliente) {
+        public List<Object[]> getDataBaseData(String query, LocalDateTime initDate, LocalDateTime endDate,
+                        String customer) {
 
                 List<Object> paramsList = new ArrayList<>();
 
-                if (fechaInicio != null) {
-                        paramsList.add(fechaInicio);
+                if (initDate != null) {
+                        paramsList.add(initDate);
                 }
-                if (fechaFin != null) {
-                        paramsList.add(fechaFin);
+                if (endDate != null) {
+                        paramsList.add(endDate);
                 }
-                if (cliente != null) {
-                        paramsList.add(cliente);
+                if (customer != null) {
+                        paramsList.add(customer);
                 }
 
                 List<Map<String, Object>> filasAsMap = jdbcTemplate.queryForList(query, paramsList.toArray());

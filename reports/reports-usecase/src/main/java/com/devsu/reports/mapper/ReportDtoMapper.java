@@ -10,13 +10,14 @@ public class ReportDtoMapper {
 
     public static ReportResponseDto toDto(ReportRow domain) {
         return new ReportResponseDto(
-                domain.getFecha(),
-                domain.getCliente(),
-                domain.getNumeroCuenta(),
-                domain.getTipo(),
-                domain.getSaldoInicial(),
-                domain.isEstado(),
-                domain.getMovimiento());
+                domain.getDate(),
+                domain.getCustomer(),
+                domain.getAccountNumber(),
+                domain.getType(),
+                domain.getInitialBalance(),
+                domain.isState(),
+                domain.getMovement(),
+                domain.getBalance());
     }
 
     public static List<ReportResponseDto> toDtoList(List<ReportRow> domainList) {

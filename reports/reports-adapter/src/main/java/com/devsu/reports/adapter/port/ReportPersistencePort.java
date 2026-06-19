@@ -4,6 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReportPersistencePort {
-    List<Object[]> buscarDatosEnBaseDatos(String query, LocalDateTime fechaInicio, LocalDateTime fechaFin,
-            String cliente);
+    List<Object[]> getDataBaseData(String query, LocalDateTime initDate, LocalDateTime endDate,
+            String customer);
 }

@@ -22,42 +22,59 @@ public class ReportDataAdapterMapper implements ReportDataPort {
     }
 
     @Override
-    public List<ReportRow> getDatosReporte(LocalDate fechaInicio, LocalDate fechaFin, String cliente) {
-        LocalDateTime inicio = (fechaInicio != null) ? fechaInicio.atStartOfDay() : null;
-        LocalDateTime fin = (fechaFin != null) ? fechaFin.atTime(LocalTime.MAX) : null;
+    public List<ReportRow> getReportData(LocalDate initDate, LocalDate endDate, String customer) {
+        LocalDateTime initDateTime = (initDate != null) ? initDate.atStartOfDay() : null;
+        LocalDateTime endDateTime = (endDate != null) ? endDate.atTime(LocalTime.MAX) : null;
         StringBuilder query = new StringBuilder(
-                "SELECT m.creation_date AS fecha, " +
-                        "       p.name AS cliente, " +
-                        "       a.account_number AS numero_cuenta, " +
-                        "       a.account_type AS tipo, " +
-                        "       a.balance AS saldo_actual, " +
-                        "       a.state AS estado, " +
-                        "       m.amount AS movimiento " +
-                        "FROM public.movement m " +
-                        "JOIN public.account a ON m.account_id = a.id " +
-                        "JOIN public.customer c ON a.customer_id = c.id " +
-                        "JOIN public.person p ON c.id = p.id " +
+                "SELECT sub.fecha, sub.cliente, sub.numero_cuenta, sub.tipo, " +
+                        "       sub.initialBalance, sub.estado, sub.movimiento, sub.balance " +
+                        "FROM (" +
+                        "  SELECT m.creation_date AS fecha, " +
+                        "         p.name AS cliente, " +
+                        "         a.account_number AS numero_cuenta, " +
+                        "         a.account_type AS tipo, " +
+                        "         a.state AS estado, " +
+                        "         m.amount AS movimiento, " +
+                        // 1. Calculate the true rolling balance up to this point using all movements
+                        "         (a.balance - " +
+                        "          SUM(m.amount) OVER(PARTITION BY m.account_id) + " +
+                        "          SUM(m.amount) OVER(PARTITION BY m.account_id ORDER BY m.creation_date ASC, m.id ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)"
+                        +
+                        "         ) AS balance, " +
+                        // 2. Initial balance is simply the current calculated balance minus this
+                        // specific movement
+                        "         (a.balance - " +
+                        "          SUM(m.amount) OVER(PARTITION BY m.account_id) + " +
+                        "          SUM(m.amount) OVER(PARTITION BY m.account_id ORDER BY m.creation_date ASC, m.id ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) - m.amount"
+                        +
+                        "         ) AS initialBalance " +
+                        "  FROM public.movement m " +
+                        "  JOIN public.account a ON m.account_id = a.id " +
+                        "  JOIN public.customer c ON a.customer_id = c.id " +
+                        "  JOIN public.person p ON c.id = p.id " +
+                        ") sub " +
                         "WHERE 1=1 ");
 
         List<Object> paramsList = new ArrayList<>();
 
-        if (fechaInicio != null) {
-            query.append("AND m.creation_date >= ? ");
-            paramsList.add(fechaInicio);
+        if (initDate != null) {
+            query.append("AND sub.fecha >= ? ");
+            paramsList.add(initDate);
         }
-        if (fechaFin != null) {
-            query.append("AND m.creation_date <= ? ");
-            paramsList.add(fechaFin);
+        if (endDate != null) {
+            query.append("AND sub.fecha <= ? ");
+            paramsList.add(endDate);
         }
-        if (cliente != null && !cliente.trim().isEmpty()) {
-            query.append("AND p.name ILIKE ? ");
-            paramsList.add("%" + cliente + "%");
+        if (customer != null && !customer.trim().isEmpty()) {
+            query.append("AND sub.cliente ILIKE ? ");
+            paramsList.add("%" + customer + "%");
         }
 
-        query.append("ORDER BY m.creation_date DESC");
+        query.append("ORDER BY sub.fecha ASC");
 
-        List<Object[]> queryResults = reportPersistencePort.buscarDatosEnBaseDatos(query.toString(), inicio, fin,
-                cliente);
+        List<Object[]> queryResults = reportPersistencePort.getDataBaseData(query.toString(), initDateTime,
+                endDateTime,
+                customer);
 
         return queryResults.stream().map(result -> {
             Timestamp timestamp = (Timestamp) result[0];
@@ -68,7 +85,8 @@ public class ReportDataAdapterMapper implements ReportDataPort {
                     (String) result[3],
                     ((Number) result[4]).doubleValue(),
                     (Boolean) result[5],
-                    ((Number) result[6]).doubleValue());
+                    ((Number) result[6]).doubleValue(),
+                    ((Number) result[7]).doubleValue());
         }).collect(Collectors.toList());
     }
 }

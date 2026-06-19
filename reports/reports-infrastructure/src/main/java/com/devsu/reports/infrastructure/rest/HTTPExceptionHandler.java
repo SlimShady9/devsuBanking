@@ -20,7 +20,7 @@ public class HTTPExceptionHandler {
     public ResponseEntity<Map<String, String>> handleNoResourceFoundException(NoResourceFoundException ex) {
         log.error("Error: {}", ex.getMessage(), ex);
         Map<String, String> error = new HashMap<>();
-        error.put("message", "Recurso no encontrado");
+        error.put("message", "Resource not found");
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -29,7 +29,7 @@ public class HTTPExceptionHandler {
             HttpMessageConversionException ex) {
         log.error("Error: {}", ex.getMessage(), ex);
         Map<String, String> error = new HashMap<>();
-        error.put("message", "Parametros incorrectos");
+        error.put("message", "Invalid parameter types");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -37,7 +37,7 @@ public class HTTPExceptionHandler {
     public ResponseEntity<Map<String, String>> handleAllOtherExceptions(Exception ex) {
         Map<String, String> error = new HashMap<>();
         log.error("Error: {} - {}", ex.getClass().getName(), ex.getMessage(), ex);
-        error.put("message", "Ocurrió un error interno en el servidor: " + ex.getMessage());
+        error.put("message", "Unexpect server error: " + ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

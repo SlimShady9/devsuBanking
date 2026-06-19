@@ -10,11 +10,12 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 public class ReportResponseDto {
-    private final LocalDate fecha;
-    private final String cliente;
-    private final String numeroCuenta;
-    private final String tipo;
-    private final double saldoInicial;
-    private final boolean estado;
-    private final double movimiento;
+    private final LocalDate date;
+    private final String customer;
+    private final String accountNumber;
+    private final String type;
+    private final double initialBalance;
+    private final boolean state;
+    private final double movement;
+    private final double balance;
 }

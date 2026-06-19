@@ -5,27 +5,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Report {
-    private final LocalDate fechaInicio;
-    private final LocalDate fechaFin;
-    private final String cliente;
-    private final List<ReportRow> filas;
+    private final LocalDate initDate;
+    private final LocalDate endDate;
+    private final String customer;
+    private final List<ReportRow> rows;
 
-    public Report(LocalDate fechaInicio, LocalDate fechaFin, String cliente, List<ReportRow> datosEnBruto) {
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.cliente = cliente;
-        this.filas = filtrarYProcesar(datosEnBruto);
+    public Report(LocalDate initDate, LocalDate endDate, String customer, List<ReportRow> rawData) {
+        this.initDate = initDate;
+        this.endDate = endDate;
+        this.customer = customer;
+        this.rows = filterAndProcess(rawData);
     }
 
-    private List<ReportRow> filtrarYProcesar(List<ReportRow> datos) {
-        return datos.stream()
-                .filter(row -> fechaInicio == null || !row.getFecha().isBefore(fechaInicio))
-                .filter(row -> fechaFin == null || !row.getFecha().isAfter(fechaFin))
-                .filter(row -> cliente == null || row.getCliente().equalsIgnoreCase(cliente))
+    private List<ReportRow> filterAndProcess(List<ReportRow> rawData) {
+        return rawData.stream()
+                .filter(row -> initDate == null || !row.getDate().isBefore(initDate))
+                .filter(row -> endDate == null || !row.getDate().isAfter(endDate))
+                .filter(row -> customer == null || row.getCustomer().equalsIgnoreCase(customer))
                 .collect(Collectors.toList());
     }
 
-    public List<ReportRow> getFilas() {
-        return filas;
+    public List<ReportRow> getRows() {
+        return rows;
     }
 }
