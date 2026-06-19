@@ -3,7 +3,6 @@ package com.devsu.account.usecase;
 import java.util.UUID;
 
 import com.devsu.account.domain.model.Account;
-import com.devsu.account.domain.model.AccountType;
 import com.devsu.account.domain.model.Movement;
 import com.devsu.account.domain.repository.AccountNumberCreator;
 import com.devsu.account.domain.repository.AccountRepository;

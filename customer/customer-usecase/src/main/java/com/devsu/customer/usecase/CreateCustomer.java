@@ -1,7 +1,5 @@
 package com.devsu.customer.usecase;
 
-import java.util.UUID;
-
 import com.devsu.customer.domain.model.Customer;
 import com.devsu.customer.domain.model.Gender;
 import com.devsu.customer.domain.model.Password;

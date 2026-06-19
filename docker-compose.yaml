@@ -96,6 +96,23 @@ services:
       SPRING_RABBITMQ_PASSWORD: guest
       # Explicitly forces all sent messages to remain RAM-only (ephemeral)
       SPRING_RABBITMQ_TEMPLATE_DELIVERY_MODE: non_persistent
+  reports-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: "reports"
+    container_name: banking-reports-service
+    ports:
+      - "8084:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Database connection parameters pointed to PostgreSQL
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/banking_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: YourSecurePassword123!
 
 # Volume definitions to persist setup configurations and DB states
 volumes:

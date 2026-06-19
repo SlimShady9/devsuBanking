@@ -1,16 +1,13 @@
 package com.devsu.account.infrastructure.db.impl;
 
 import java.util.List;
-import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.model.Movement;
-import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.domain.repository.MovementRepository;
 import com.devsu.account.infrastructure.db.jpa.entities.MovementEntity;
 import com.devsu.account.infrastructure.db.jpa.repository.JpaMovementRepository;

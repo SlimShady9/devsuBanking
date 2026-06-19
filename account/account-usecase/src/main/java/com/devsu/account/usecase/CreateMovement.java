@@ -6,7 +6,6 @@ import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.domain.repository.MovementRepository;
 import com.devsu.account.dto.MovementRequest;
 import com.devsu.account.dto.MovementResponse;
-import java.util.UUID;
 
 public class CreateMovement {
     private final AccountRepository accountRepository;

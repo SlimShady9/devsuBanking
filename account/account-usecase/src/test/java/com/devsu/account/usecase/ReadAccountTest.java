@@ -29,7 +29,6 @@ public class ReadAccountTest {
 
     @Test
     void should_return_account_when_found() {
-        UUID id = UUID.randomUUID();
         Account account = new Account("1234567890", AccountType.SAVINGS, 1000.0, true, UUID.randomUUID());
         when(accountRepository.findByAccountNumber("1234567890")).thenReturn(Optional.of(account));
 

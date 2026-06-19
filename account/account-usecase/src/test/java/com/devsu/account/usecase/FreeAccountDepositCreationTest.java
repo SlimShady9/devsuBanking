@@ -18,7 +18,6 @@ import com.devsu.account.domain.model.Movement;
 import com.devsu.account.domain.repository.AccountNumberCreator;
 import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.domain.repository.MovementRepository;
-import com.devsu.account.dto.AccountRequest;
 
 public class FreeAccountDepositCreationTest {
 
