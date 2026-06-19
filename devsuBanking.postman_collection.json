@@ -1,0 +1,495 @@
+{
+  "info": {
+    "_postman_id": "9935de73-1013-4311-8f74-d2b98c8553b6",
+    "name": "devsuBanking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "16187708"
+  },
+  "item": [
+    {
+      "name": "customer",
+      "item": [
+        {
+          "name": "GetCustomers",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "// Extract your target value (e.g., an ID or a token)\r",
+                  "const extractedValue = responseData[0].id; \r",
+                  "\r",
+                  "// Save the value to an Environment variable\r",
+                  "pm.environment.set(\"userId\", extractedValue);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetCustomer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/customer/{{userId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "customer",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateCustomer",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Alice Green\",\r\n    \"gender\": \"MALE\",\r\n    \"age\": 25,\r\n    \"state\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/customer/{{userId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "customer",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CreateCustomer",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Melissa Smith Bernal\",\r\n    \"gender\": \"FEMALE\",\r\n    \"age\": 22,\r\n    \"state\": true,\r\n    \"password\": \"1314*\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteCustomer",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Alice Green\",\r\n    \"gender\": \"MALE\",\r\n    \"age\": 25,\r\n    \"state\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/customer/{{userId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "customer",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "reports",
+      "item": [
+        {
+          "name": "MakeReport",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "// Extract your target value (e.g., an ID or a token)\r",
+                  "const extractedValue = responseData[0].id; \r",
+                  "\r",
+                  "// Save the value to an Environment variable\r",
+                  "pm.environment.set(\"userId\", extractedValue);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8084/api/reports?initDate=2026-06-12&endDate=2026-06-19",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8084",
+              "path": [
+                "api",
+                "reports"
+              ],
+              "query": [
+                {
+                  "key": "initDate",
+                  "value": "2026-06-12"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2026-06-19"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "account",
+      "item": [
+        {
+          "name": "movements",
+          "item": [
+            {
+              "name": "GetMovements",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const responseData = pm.response.json();\r",
+                      "\r",
+                      "// Extract your target value (e.g., an ID or a token)\r",
+                      "const movementId = responseData[0].id; \r",
+                      "\r",
+                      "// Save the value to an Environment variable\r",
+                      "pm.environment.set(\"movementId\", movementId);\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8083/api/movement?accountNumber={{accountNumber}}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "movement"
+                  ],
+                  "query": [
+                    {
+                      "key": "accountNumber",
+                      "value": "{{accountNumber}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetMovements",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8083/api/movement/{{movementId}}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "movement",
+                    "{{movementId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateMovement",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"accountNumber\": {{accountNumber}},\r\n    \"amount\": -99.0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8083/api/movement",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "movement"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "account",
+          "item": [
+            {
+              "name": "GetAccounts",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const responseData = pm.response.json();\r",
+                      "\r",
+                      "// Extract your target value (e.g., an ID or a token)\r",
+                      "const accountNumber = responseData[0].accountNumber;\r",
+                      "const accountId = responseData[0].accountId;\r",
+                      "\r",
+                      "// Save the value to an Environment variable\r",
+                      "pm.environment.set(\"accountNumber\", accountNumber);\r",
+                      "pm.environment.set(\"accountId\", extractedValue);\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8083/api/account",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "account"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "GetAccountById",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:8083/api/account/{{accountId}}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "account",
+                    "{{accountId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "UpdateAccount",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"customerId\" : \"d8435886-7f18-44fc-bf07-cace5f0e41b8\",\r\n    \"accountType\" : \"SAVINGS\",\r\n    \"state\" : false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8083/api/account/{{accountId}}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "account",
+                    "{{accountId}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "CreateAccount",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"customerId\":\"{{userId}}\",\r\n    \"accountType\": \"SAVINGS\",\r\n    \"state\": true\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:8083/api/account",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "account"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
