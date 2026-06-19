@@ -16,8 +16,7 @@ public class ReportDtoMapper {
                 domain.getTipo(),
                 domain.getSaldoInicial(),
                 domain.isEstado(),
-                domain.getMovimiento(),
-                domain.getSaldoDisponible());
+                domain.getMovimiento());
     }
 
     public static List<ReportResponseDto> toDtoList(List<ReportRow> domainList) {

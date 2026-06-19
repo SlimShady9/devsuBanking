@@ -1,5 +1,7 @@
 package com.devsu.account.usecase;
 
+import java.util.MissingResourceException;
+
 import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.model.Movement;
 import com.devsu.account.domain.repository.AccountRepository;
@@ -19,7 +21,8 @@ public class CreateMovement {
     public MovementResponse execute(MovementRequest request) {
         // Find account by number
         Account account = accountRepository.findByAccountNumber(request.getAccountNumber())
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new MissingResourceException("Account not found", Account.class.getName(),
+                        request.getAccountNumber()));
         // Perform transaction (positive deposit or negative withdrawal)
         account.makeTransaction(request.getAmount());
         // Persist updated account (assuming repository.update is needed)

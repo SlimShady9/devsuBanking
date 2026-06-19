@@ -9,4 +9,4 @@ spring:
     password: ${SPRING_DATASOURCE_PASSWORD:YourSecurePassword123!}
 
 server:
-  port: 8084
+  port: 8080

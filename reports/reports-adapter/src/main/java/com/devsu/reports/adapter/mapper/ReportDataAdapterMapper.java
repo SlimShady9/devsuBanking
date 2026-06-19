@@ -3,6 +3,7 @@ package com.devsu.reports.adapter.mapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.sql.Timestamp;
@@ -24,18 +25,39 @@ public class ReportDataAdapterMapper implements ReportDataPort {
     public List<ReportRow> getDatosReporte(LocalDate fechaInicio, LocalDate fechaFin, String cliente) {
         LocalDateTime inicio = (fechaInicio != null) ? fechaInicio.atStartOfDay() : null;
         LocalDateTime fin = (fechaFin != null) ? fechaFin.atTime(LocalTime.MAX) : null;
+        StringBuilder query = new StringBuilder(
+                "SELECT m.creation_date AS fecha, " +
+                        "       p.name AS cliente, " +
+                        "       a.account_number AS numero_cuenta, " +
+                        "       a.account_type AS tipo, " +
+                        "       a.balance AS saldo_actual, " +
+                        "       a.state AS estado, " +
+                        "       m.amount AS movimiento " +
+                        "FROM public.movement m " +
+                        "JOIN public.account a ON m.account_id = a.id " +
+                        "JOIN public.customer c ON a.customer_id = c.id " +
+                        "JOIN public.person p ON c.id = p.id " +
+                        "WHERE 1=1 ");
 
-        String query = "SELECT m.fecha, cl.nombre, c.numeroCuenta, c.tipoCuenta, m.saldoInicial, c.estado, m.valor, m.saldoDisponible "
-                +
-                "FROM MovimientoEntity m " +
-                "JOIN m.cuenta c " +
-                "JOIN c.cliente cl " +
-                "WHERE (:fechaInicio IS NULL OR m.fecha >= :fechaInicio) " +
-                "  AND (:fechaFin IS NULL OR m.fecha <= :fechaFin) " +
-                "  AND (:cliente IS NULL OR UPPER(cl.nombre) LIKE UPPER(CONCAT('%', :cliente, '%')))";
+        List<Object> paramsList = new ArrayList<>();
 
-        // Llamada desacoplada a través de la interfaz
-        List<Object[]> queryResults = reportPersistencePort.buscarDatosEnBaseDatos(query, inicio, fin, cliente);
+        if (fechaInicio != null) {
+            query.append("AND m.creation_date >= ? ");
+            paramsList.add(fechaInicio);
+        }
+        if (fechaFin != null) {
+            query.append("AND m.creation_date <= ? ");
+            paramsList.add(fechaFin);
+        }
+        if (cliente != null && !cliente.trim().isEmpty()) {
+            query.append("AND p.name ILIKE ? ");
+            paramsList.add("%" + cliente + "%");
+        }
+
+        query.append("ORDER BY m.creation_date DESC");
+
+        List<Object[]> queryResults = reportPersistencePort.buscarDatosEnBaseDatos(query.toString(), inicio, fin,
+                cliente);
 
         return queryResults.stream().map(result -> {
             Timestamp timestamp = (Timestamp) result[0];
@@ -46,8 +68,7 @@ public class ReportDataAdapterMapper implements ReportDataPort {
                     (String) result[3],
                     ((Number) result[4]).doubleValue(),
                     (Boolean) result[5],
-                    ((Number) result[6]).doubleValue(),
-                    ((Number) result[7]).doubleValue());
+                    ((Number) result[6]).doubleValue());
         }).collect(Collectors.toList());
     }
 }

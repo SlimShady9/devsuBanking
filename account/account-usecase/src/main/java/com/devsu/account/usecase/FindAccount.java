@@ -3,6 +3,8 @@ package com.devsu.account.usecase;
 import com.devsu.account.domain.model.Account;
 import com.devsu.account.domain.repository.AccountRepository;
 import com.devsu.account.dto.AccountResponse;
+
+import java.util.MissingResourceException;
 import java.util.UUID;
 
 public class FindAccount {
@@ -15,7 +17,8 @@ public class FindAccount {
 
     public AccountResponse execute(UUID id) {
         Account account = accountRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Account not found"));
+                .orElseThrow(() -> new MissingResourceException("Account not found", Account.class.getName(),
+                        id.toString()));
         return AccountResponse.fromDomain(account);
     }
 }

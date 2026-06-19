@@ -17,5 +17,4 @@ public class ReportResponseDto {
     private final double saldoInicial;
     private final boolean estado;
     private final double movimiento;
-    private final double saldoDisponible;
 }

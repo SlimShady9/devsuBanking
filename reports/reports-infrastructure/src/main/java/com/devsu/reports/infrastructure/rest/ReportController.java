@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 
+import com.devsu.reports.domain.port.ReportDataPort;
 import com.devsu.reports.dto.ReportResponseDto;
 import com.devsu.reports.usecase.GenerateReportUseCase;
 
@@ -14,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/reportes")
+@RequestMapping("/api/reportes")
 public class ReportController {
 
     private final GenerateReportUseCase generateReportUseCase;
